@@ -103,7 +103,8 @@ class RGBStream(nn.Module):
         super(RGBStream, self).__init__()
         
         self.backbone = HRNetBackbone(pretrained=pretrained, in_channels=3)
-        self.heatmap_head = HeatmapHead(in_channels=32, num_landmarks=num_landmarks)
+        # Change from 32 to 1024 channels to match HRNet-W32 output
+        self.heatmap_head = HeatmapHead(in_channels=1024, num_landmarks=num_landmarks)
     
     def forward(self, x):
         features = self.backbone(x)
@@ -118,7 +119,8 @@ class DepthStream(nn.Module):
         super(DepthStream, self).__init__()
         
         self.backbone = HRNetBackbone(pretrained=pretrained, in_channels=1)
-        self.heatmap_head = HeatmapHead(in_channels=32, num_landmarks=num_landmarks)
+        # Change from 32 to 1024 channels to match HRNet-W32 output
+        self.heatmap_head = HeatmapHead(in_channels=1024, num_landmarks=num_landmarks)
     
     def forward(self, x):
         features = self.backbone(x)
